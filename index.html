@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Калькулятор</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,#111827,#4338ca,#7c3aed);font-family:system-ui,sans-serif;color:#fff}
+.calc{width:min(100%,360px);padding:22px;border-radius:26px;background:#171d2eeF;box-shadow:0 24px 70px #0006}
+h1{text-align:center;font-size:22px;margin:0 0 18px}.screen{min-height:100px;padding:16px;margin-bottom:14px;border-radius:16px;background:#090d18;display:flex;flex-direction:column;justify-content:end;align-items:end;overflow-wrap:anywhere}
+#prev{min-height:24px;color:#a5b4fc}#display{font-size:40px;font-weight:600;max-width:100%;overflow-wrap:anywhere}
+.keys{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}button{height:62px;border:0;border-radius:15px;background:#374151;color:white;font-size:22px;cursor:pointer}button:active{filter:brightness(1.25);transform:scale(.97)}.op{background:#4f46e5}.util{background:#6b7280}.eq{background:#7c3aed}.zero{grid-column:span 2}
+</style>
+</head>
+<body><main class="calc"><h1>Калькулятор</h1><div class="screen" aria-live="polite"><div id="prev"></div><div id="display">0</div></div>
+<div class="keys">
+<button class="util" data-a="clear">AC</button><button class="util" data-a="del">⌫</button><button class="util" data-a="percent">%</button><button class="op" data-op="÷">÷</button>
+<button data-n="7">7</button><button data-n="8">8</button><button data-n="9">9</button><button class="op" data-op="×">×</button>
+<button data-n="4">4</button><button data-n="5">5</button><button data-n="6">6</button><button class="op" data-op="−">−</button>
+<button data-n="1">1</button><button data-n="2">2</button><button data-n="3">3</button><button class="op" data-op="+">+</button>
+<button class="zero" data-n="0">0</button><button data-n=".">.</button><button class="eq" data-a="eq">=</button>
+</div></main>
+<script>
+const d=document.querySelector('#display'),p=document.querySelector('#prev');let cur='0',old='',op=null,reset=false;
+function show(){d.textContent=cur;p.textContent=op?old+' '+op:''}
+function num(n){if(cur==='Ошибка')cur='0';if(reset){cur=n==='.'?'0.':n;reset=false}else if(n==='.'&&cur.includes('.'))return;else if(cur==='0'&&n!=='.')cur=n;else cur+=n;show()}
+function calc(){if(!op||reset)return;let a=+old,b=+cur,r=op==='+'?a+b:op==='−'?a-b:op==='×'?a*b:b===0?NaN:a/b;cur=Number.isFinite(r)?String(Number(r.toPrecision(12))):'Ошибка';old='';op=null;reset=true;show()}
+function choose(x){if(op&&!reset)calc();old=cur;op=x;reset=true;show()}
+function clear(){cur='0';old='';op=null;reset=false;show()}
+function del(){if(reset||cur==='Ошибка'){cur='0';reset=false}else cur=cur.length>1?cur.slice(0,-1):'0';show()}
+function percent(){if(cur!=='Ошибка')cur=String(+cur/100);show()}
+document.querySelector('.keys').addEventListener('click',e=>{let b=e.target.closest('button');if(!b)return;if(b.dataset.n!==undefined)num(b.dataset.n);else if(b.dataset.op)choose(b.dataset.op);else if(b.dataset.a==='eq')calc();else if(b.dataset.a==='clear')clear();else if(b.dataset.a==='del')del();else if(b.dataset.a==='percent')percent()});
+document.addEventListener('keydown',e=>{if(/^[0-9.]$/.test(e.key))num(e.key);else if(['+','-','*','/'].includes(e.key)){e.preventDefault();choose(({'+':'+','-':'−','*':'×','/':'÷'})[e.key])}else if(e.key==='Enter'||e.key==='=')calc();else if(e.key==='Backspace')del();else if(e.key==='Escape')clear();else if(e.key==='%')percent()});show();
+</script></body></html>
