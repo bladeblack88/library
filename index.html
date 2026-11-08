@@ -10,34 +10,44 @@
 <meta name="mobile-web-app-capable" content="yes">
 <title>Калькулятор</title>
 <style>
-:root{color-scheme:dark;--purple:#a78bfa;--deep:#1b1035;--panel:#261344;--key:#38205d;--key2:#4b2b79;--accent:#8b5cf6;--glow:#c4b5fd}
+:root{color-scheme:dark;--purple:#a78bfa;--deep:#1b1035;--accent:#8b5cf6}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{width:100%;height:100%;margin:0;overflow:hidden}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;color:#fff;background:radial-gradient(ellipse at 18% 8%,#7137b8 0,transparent 42%),radial-gradient(ellipse at 90% 88%,#4c1d95 0,transparent 45%),linear-gradient(145deg,#170b2b,#32105f 55%,#1b1035);overscroll-behavior:none}
-.app{width:100%;height:100vh;height:100dvh;min-height:100%;display:flex;flex-direction:column;padding: max(14px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));gap:clamp(10px,2vh,22px)}
-.top{display:flex;align-items:center;justify-content:space-between;min-height:42px;padding:0 4px}
-.brand{display:flex;align-items:center;gap:11px;font-size:clamp(17px,2.4vw,23px);font-weight:700;letter-spacing:.2px}
-.logo{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(145deg,#c4b5fd,#8b5cf6);color:#271044;font-size:22px;box-shadow:0 5px 22px #a78bfa55}
-.hint{font-size:12px;color:#d8c9f6a8;letter-spacing:.12em;text-transform:uppercase}
-.screen{flex:1;min-height:100px;border:1px solid #ffffff20;border-radius:clamp(20px,3vw,32px);padding:clamp(18px,4vw,34px);display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;background:linear-gradient(145deg,#ffffff16,#ffffff08);box-shadow:inset 0 1px #ffffff16,0 18px 55px #10051e55;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);overflow:hidden}
-#prev{min-height:clamp(24px,4vh,38px);font-size:clamp(16px,2.5vw,22px);color:#d6c4ff;overflow-wrap:anywhere;text-align:right}
-#display{width:100%;font-size:clamp(48px,10vw,86px);line-height:1.12;font-weight:300;letter-spacing:-.045em;text-align:right;overflow-wrap:anywhere;word-break:break-all;text-shadow:0 4px 25px #c4b5fd22}
-.keys{flex:1.45;min-height:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(5,minmax(0,1fr));gap:clamp(8px,1.6vw,16px)}
-button{min-width:0;min-height:44px;border:1px solid #ffffff12;border-radius:clamp(14px,2.5vw,24px);background:linear-gradient(145deg,#ffffff17,#ffffff0b);color:#fff;font:500 clamp(22px,4vw,34px)/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;box-shadow:0 7px 18px #10051e25,inset 0 1px #ffffff12;touch-action:manipulation;user-select:none;transition:filter .12s,transform .12s}
+.app{width:100%;height:100vh;height:100dvh;display:flex;flex-direction:column;padding:max(10px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));gap:clamp(7px,1.2vh,14px)}
+.top{display:flex;align-items:center;justify-content:space-between;min-height:34px;padding:0 4px;flex-shrink:0}
+.brand{display:flex;align-items:center;gap:10px;font-size:clamp(16px,2.4vw,22px);font-weight:700}
+.logo{width:32px;height:32px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(145deg,#c4b5fd,#8b5cf6);color:#271044;font-size:20px;box-shadow:0 5px 22px #a78bfa55}
+.hint{font-size:11px;color:#d8c9f6a8;letter-spacing:.1em;text-transform:uppercase}
+.screen{flex:0 0 20%;min-height:92px;border:1px solid #ffffff20;border-radius:clamp(18px,3vw,28px);padding:clamp(12px,2.5vw,24px);display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;background:linear-gradient(145deg,#ffffff16,#ffffff08);box-shadow:inset 0 1px #ffffff16,0 18px 55px #10051e55;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);overflow:hidden}
+#prev{min-height:22px;font-size:clamp(14px,2.2vw,20px);color:#d6c4ff;overflow-wrap:anywhere;text-align:right}
+#display{width:100%;font-size:clamp(42px,8vw,76px);line-height:1.1;font-weight:300;letter-spacing:-.045em;text-align:right;overflow-wrap:anywhere;word-break:break-all}
+.history{flex:0 0 19%;min-height:72px;display:flex;flex-direction:column;border:1px solid #ffffff1c;border-radius:18px;background:#160b2d88;overflow:hidden;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.history-head{height:31px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 13px;border-bottom:1px solid #ffffff12;color:#d9c9ff;font-size:12px;font-weight:650;letter-spacing:.08em;text-transform:uppercase}
+#clear-history{border:0;background:none;color:#c4b5fd;font:inherit;font-size:11px;padding:5px 0;min-height:0}
+#history-list{overflow-y:auto;overscroll-behavior:contain;padding:3px 13px 6px;scrollbar-width:thin;scrollbar-color:#8b5cf6 transparent}
+.history-row{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:27px;border-bottom:1px solid #ffffff0c;font-size:clamp(12px,1.8vw,15px)}
+.history-row:last-child{border-bottom:0}
+.history-expression{color:#d9c9f5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.history-result{color:#fff;font-weight:650;white-space:nowrap}
+.empty-history{color:#bba9d5a0;font-size:12px;padding:8px 0}
+.keys{flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(5,minmax(0,1fr));gap:clamp(7px,1.4vw,14px)}
+button{min-width:0;min-height:40px;border:1px solid #ffffff12;border-radius:clamp(13px,2.3vw,22px);background:linear-gradient(145deg,#ffffff17,#ffffff0b);color:#fff;font:500 clamp(21px,3.8vw,32px)/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;box-shadow:0 7px 18px #10051e25,inset 0 1px #ffffff12;touch-action:manipulation;user-select:none}
 button:active{filter:brightness(1.35);transform:scale(.97)}
 button.util{background:linear-gradient(145deg,#7652a5,#56377f);color:#f1eaff}
 button.op{background:linear-gradient(145deg,#a78bfa,#7c3aed);color:#210d40;font-weight:650;box-shadow:0 6px 22px #8b5cf655,inset 0 1px #ffffff70}
 button.eq{background:linear-gradient(145deg,#e9d5ff,#a78bfa);color:#2e1051;font-weight:750;box-shadow:0 8px 28px #a78bfa66}
 button.zero{grid-column:span 2}
-.footer{text-align:center;color:#d8c9f680;font-size:11px;letter-spacing:.08em;padding:0 0 2px}
-@media (orientation:landscape){.app{gap:10px;padding: max(8px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}.top{min-height:30px}.logo{width:28px;height:28px}.screen{padding:12px 24px}.keys{flex:2;gap:8px}.footer{display:none}#display{font-size:clamp(38px,8vh,68px)}}
-@media (min-width:700px) and (orientation:portrait){.app{padding-left:clamp(22px,5vw,64px);padding-right:clamp(22px,5vw,64px)}.keys{gap:clamp(12px,2vw,20px)}}
+.footer{text-align:center;color:#d8c9f680;font-size:10px;letter-spacing:.06em;flex-shrink:0}
+@media(orientation:landscape){.app{gap:6px;padding: max(6px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(6px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}.top{min-height:27px}.logo{width:25px;height:25px}.screen{flex-basis:17%;min-height:64px;padding:8px 18px}.history{flex-basis:18%;min-height:55px}.history-head{height:25px}.history-row{min-height:21px}.keys{gap:6px}.keys button{min-height:30px}.footer{display:none}#display{font-size:clamp(34px,7vh,58px)}}
+@media(min-width:700px) and (orientation:portrait){.app{padding-left:clamp(22px,5vw,64px);padding-right:clamp(22px,5vw,64px)}.keys{gap:clamp(10px,1.8vw,18px)}}
 </style>
 </head>
 <body>
 <main class="app" aria-label="Калькулятор">
 <header class="top"><div class="brand"><span class="logo" aria-hidden="true">✦</span><span>Калькулятор</span></div><span class="hint">Просто · Быстро · Точно</span></header>
 <section class="screen" aria-live="polite" aria-atomic="true"><div id="prev"></div><div id="display">0</div></section>
+<section class="history" aria-label="История вычислений"><div class="history-head"><span>Память вычислений</span><button id="clear-history" type="button">Очистить</button></div><div id="history-list"><div class="empty-history">Здесь появятся результаты вычислений</div></div></section>
 <section class="keys" aria-label="Кнопки калькулятора">
 <button class="util" data-a="clear" aria-label="Очистить">AC</button><button class="util" data-a="del" aria-label="Удалить последний символ">⌫</button><button class="util" data-a="percent">%</button><button class="op" data-op="÷">÷</button>
 <button data-n="7">7</button><button data-n="8">8</button><button data-n="9">9</button><button class="op" data-op="×">×</button>
@@ -45,21 +55,26 @@ button.zero{grid-column:span 2}
 <button data-n="1">1</button><button data-n="2">2</button><button data-n="3">3</button><button class="op" data-op="+">+</button>
 <button class="zero" data-n="0">0</button><button data-n=".">.</button><button class="eq" data-a="eq">=</button>
 </section>
-<footer class="footer">Нажми на кнопку или используй клавиатуру</footer>
+<footer class="footer">История сохраняется на этом устройстве</footer>
 </main>
 <script>
-const display=document.getElementById('display'),previous=document.getElementById('prev');
+const display=document.getElementById('display'),previous=document.getElementById('prev'),historyList=document.getElementById('history-list');
 let current='0',stored='',operator=null,resetNext=false;
+let history=[];
+try{history=JSON.parse(localStorage.getItem('purpleCalcHistory')||'[]');if(!Array.isArray(history))history=[]}catch(e){history=[]}
 function render(){display.textContent=current;previous.textContent=operator?stored+' '+operator:''}
+function renderHistory(){historyList.replaceChildren();if(!history.length){const empty=document.createElement('div');empty.className='empty-history';empty.textContent='Здесь появятся результаты вычислений';historyList.append(empty);return}history.slice(0,30).forEach(item=>{const row=document.createElement('div');row.className='history-row';const expression=document.createElement('span');expression.className='history-expression';expression.textContent=item.expression;const result=document.createElement('span');result.className='history-result';result.textContent='= '+item.result;row.append(expression,result);historyList.append(row)})}
+function remember(expression,result){history.unshift({expression,result});history=history.slice(0,30);try{localStorage.setItem('purpleCalcHistory',JSON.stringify(history))}catch(e){}renderHistory()}
 function inputNumber(n){if(current==='Ошибка')current='0';if(resetNext){current=n==='.'?'0.':n;resetNext=false}else if(n==='.'&&current.includes('.'))return;else if(current==='0'&&n!=='.')current=n;else current+=n;render()}
-function calculate(){if(!operator||resetNext)return;const a=Number(stored),b=Number(current);let result;if(operator==='+')result=a+b;else if(operator==='−')result=a-b;else if(operator==='×')result=a*b;else result=b===0?NaN:a/b;current=Number.isFinite(result)?String(Number(result.toPrecision(12))):'Ошибка';stored='';operator=null;resetNext=true;render()}
+function calculate(){if(!operator||resetNext)return;const expression=stored+' '+operator+' '+current;const a=Number(stored),b=Number(current);let result;if(operator==='+')result=a+b;else if(operator==='−')result=a-b;else if(operator==='×')result=a*b;else result=b===0?NaN:a/b;current=Number.isFinite(result)?String(Number(result.toPrecision(12))):'Ошибка';if(current!=='Ошибка')remember(expression,current);stored='';operator=null;resetNext=true;render()}
 function chooseOperator(next){if(operator&&!resetNext)calculate();stored=current;operator=next;resetNext=true;render()}
 function clearAll(){current='0';stored='';operator=null;resetNext=false;render()}
 function deleteLast(){if(resetNext||current==='Ошибка'){current='0';resetNext=false}else current=current.length>1?current.slice(0,-1):'0';render()}
 function percent(){if(current!=='Ошибка')current=String(Number(current)/100);render()}
 document.querySelector('.keys').addEventListener('click',event=>{const b=event.target.closest('button');if(!b)return;if(b.dataset.n!==undefined)inputNumber(b.dataset.n);else if(b.dataset.op)chooseOperator(b.dataset.op);else if(b.dataset.a==='eq')calculate();else if(b.dataset.a==='clear')clearAll();else if(b.dataset.a==='del')deleteLast();else if(b.dataset.a==='percent')percent()});
+document.getElementById('clear-history').addEventListener('click',()=>{history=[];try{localStorage.removeItem('purpleCalcHistory')}catch(e){}renderHistory()});
 document.addEventListener('keydown',event=>{if(/^[0-9.]$/.test(event.key))inputNumber(event.key);else if(['+','-','*','/'].includes(event.key)){event.preventDefault();chooseOperator(({'+':'+','-':'−','*':'×','/':'÷'})[event.key])}else if(event.key==='Enter'||event.key==='=')calculate();else if(event.key==='Backspace')deleteLast();else if(event.key==='Escape')clearAll();else if(event.key==='%')percent()});
-render();
+render();renderHistory();
 </script>
 </body>
 </html>
